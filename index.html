@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My-Project Vanilla JS</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css"
+    />
+  </head>
+  <body>
+    <header id="main-header">
+      <div class="logo">My-Project</div>
+      <button class="hamburger" id="hamburger-btn">☰</button>
+      <nav id="desktop-nav">
+        <a href="#dashboard" id="nav-dashboard">Dashboard</a>
+        <a href="#tasks" id="nav-tasks">Tasks</a>
+        <a href="#notes" id="nav-notes">Notes</a>
+        <span id="user-info"></span>
+        <button id="logout-btn" style="display: none">Logout</button>
+      </nav>
+      <div id="mobile-nav" class="mobile-nav" style="display: none">
+        <a href="#dashboard" id="mobile-nav-dashboard">Dashboard</a>
+        <a href="#tasks" id="mobile-nav-tasks">Tasks</a>
+        <a href="#notes" id="mobile-nav-notes">Notes</a>
+        <div class="mobile-user-info">
+          <span id="mobile-user-email"></span>
+          <button id="mobile-logout-btn">Logout</button>
+        </div>
+      </div>
+    </header>
+    <main>
+      <!-- LogIn Section -->
+      <section id="login-section" class="page-section">
+        <h2>Login</h2>
+        <form id="login-form" class="auth-form">
+          <input type="email" id="login-email" placeholder="Email" required />
+          <input
+            type="password"
+            id="login-password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit">Login</button>
+          <p>Don't have an account? <a href="#signup">Sign up</a></p>
+          <div id="login-error" class="auth-error"></div>
+        </form>
+      </section>
+
+      <!-- SignUp Section -->
+      <section id="signup-section" class="page-section">
+        <h2>Sign Up</h2>
+        <form id="signup-form" class="auth-form">
+          <input
+            type="text"
+            id="signup-username"
+            placeholder="Username"
+            required
+          />
+          <input type="email" id="signup-email" placeholder="Email" required />
+          <input
+            type="password"
+            id="signup-password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit">Sign Up</button>
+          <p>Already have an account? <a href="#login">Login</a></p>
+          <div id="signup-error" class="auth-error"></div>
+        </form>
+      </section>
+
+      <!-- Dashboard Section -->
+      <section id="dashboard-section" class="page-section"></section>
+
+      <!-- Tasks Section -->
+      <section id="tasks-section" class="page-section">
+        <h2>Tasks</h2>
+        <button id="add-task-btn">Add Task</button>
+        <div class="task-filters">
+          <input type="text" id="task-search" placeholder="Search tasks..." />
+          <select id="filter-status">
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="incomplete">Incomplete</option>
+          </select>
+          <select id="filter-priority">
+            <option value="all">All</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <select id="filter-color">
+            <option value="all">All Colors</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+            <option value="red">Red</option>
+            <option value="pink">Pink</option>
+            <option value="teal">Teal</option>
+          </select>
+          <select id="filter-sort">
+            <option value="createdAt_desc">Newest First</option>
+            <option value="createdAt_asc">Oldest First</option>
+          </select>
+        </div>
+        <div id="tasks-list"></div>
+      </section>
+
+      <!-- Notes Section -->
+      <section id="notes-section" class="page-section">
+        <h2>Notes</h2>
+        <div class="note-filters">
+          <input type="text" id="note-search" placeholder="Search notes..." />
+          <select id="note-sort">
+            <option value="createdAt_desc">Newest First</option>
+            <option value="createdAt_asc">Oldest First</option>
+          </select>
+          <select id="note-color-filter">
+            <option value="all">All Colors</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+            <option value="red">Red</option>
+            <option value="pink">Pink</option>
+            <option value="teal">Teal</option>
+          </select>
+        </div>
+        <form id="add-note-form" class="add-note-form">
+          <input type="text" id="note-title" placeholder="Title" />
+          <textarea
+            id="note-content"
+            placeholder="Take a note... (Markdown supported)"
+            required
+          ></textarea>
+          <select id="note-color">
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+            <option value="red">Red</option>
+            <option value="pink">Pink</option>
+            <option value="teal">Teal</option>
+          </select>
+          <button type="submit">Add Note</button>
+        </form>
+        <div id="notes-list"></div>
+      </section>
+
+      <!-- Input Task Fields -->
+      <div id="task-modal" class="modal" style="display: none">
+        <div class="modal-content">
+          <h3 id="task-modal-title">Add Task</h3>
+          <form id="add-task-form">
+            <input
+              type="text"
+              id="task-title"
+              placeholder="Task Title"
+              required
+            />
+            <textarea id="task-desc"></textarea>
+            <select id="task-priority">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+            <select id="task-color">
+              <option value="blue" selected>Blue</option>
+              <option value="green">Green</option>
+              <option value="yellow">Yellow</option>
+              <option value="red">Red</option>
+              <option value="pink">Pink</option>
+              <option value="teal">Teal</option>
+            </select>
+            <button type="submit">Add Task</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Read More Section -->
+      <div id="read-more-modal" class="modal" style="display: none"></div>
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+    <script src="app.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
